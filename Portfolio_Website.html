@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phattanan Manuthamathorn | Personal Portfolio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Arial', 'Helvetica', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fdf4ff',
+              100: '#fae8ff',
+              500: '#d946ef',
+              600: '#c026d3',
+              700: '#a21caf',
+            },
+            accent: {
+              500: '#6366f1',
+              600: '#4f46e5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glassmorphism {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .blob {
+      filter: blur(70px);
+      opacity: 0.45;
+      z-index: 0;
+      pointer-events: none;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-25px) scale(1.06); }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen relative selection:bg-fuchsia-500 selection:text-white">
+
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+    <div class="blob absolute top-10 -left-20 w-80 h-80 rounded-full bg-pink-400 dark:bg-pink-700"></div>
+    <div class="blob absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-indigo-400 dark:bg-indigo-900" style="animation-delay: 2s;"></div>
+    <div class="blob absolute bottom-10 left-1/4 w-80 h-80 rounded-full bg-purple-400 dark:bg-purple-800" style="animation-delay: 4s;"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 glassmorphism border-b border-slate-200/70 dark:border-slate-800/80 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo / Brand -->
+      <a href="#home" class="flex items-center gap-2 group">
+        <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-fuchsia-500 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-105 transition-transform duration-200">
+          PM
+        </span>
+        <div class="flex flex-col">
+          <span class="font-bold text-sm sm:text-base leading-tight tracking-tight text-slate-900 dark:text-white">Phattanan M.</span>
+          <span class="text-[11px] text-fuchsia-600 dark:text-fuchsia-400 font-medium">KMITL Student</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#home" class="nav-item hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors py-1">Home</a>
+        <a href="#about" class="nav-item hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors py-1">About</a>
+        <a href="#interests" class="nav-item hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors py-1">Interests</a>
+        <a href="#gallery" class="nav-item hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors py-1">Gallery</a>
+        <a href="#contact" class="nav-item hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors py-1">Contact</a>
+      </nav>
+
+      <!-- Action Buttons: Theme Toggle & Mobile Menu -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" aria-label="Toggle dark/light mode" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/80 flex items-center justify-center text-slate-700 dark:text-amber-400 hover:scale-105 active:scale-95 transition-all shadow-sm">
+          <i data-lucide="moon" id="moon-icon" class="w-5 h-5 hidden"></i>
+          <i data-lucide="sun" id="sun-icon" class="w-5 h-5 hidden"></i>
+        </button>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button id="mobile-menu-btn" aria-label="Open mobile menu" class="md:hidden w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/80 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:scale-105 active:scale-95 transition-all">
+          <i data-lucide="menu" id="hamburger-icon" class="w-5 h-5"></i>
+          <i data-lucide="x" id="close-icon" class="w-5 h-5 hidden"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 px-6 py-5 space-y-3 shadow-xl">
+      <a href="#home" class="mobile-nav-link block font-semibold text-slate-700 dark:text-slate-200 hover:text-fuchsia-600 py-1.5">Home</a>
+      <a href="#about" class="mobile-nav-link block font-semibold text-slate-700 dark:text-slate-200 hover:text-fuchsia-600 py-1.5">About</a>
+      <a href="#interests" class="mobile-nav-link block font-semibold text-slate-700 dark:text-slate-200 hover:text-fuchsia-600 py-1.5">Interests</a>
+      <a href="#gallery" class="mobile-nav-link block font-semibold text-slate-700 dark:text-slate-200 hover:text-fuchsia-600 py-1.5">Gallery</a>
+      <a href="#contact" class="mobile-nav-link block font-semibold text-slate-700 dark:text-slate-200 hover:text-fuchsia-600 py-1.5">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 sm:space-y-32 py-10 sm:py-16">
+
+    <section id="home" class="reveal-on-scroll flex flex-col-reverse md:flex-row items-center justify-between gap-12 pt-6 sm:pt-10">
+      <div class="flex-1 text-center md:text-left space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-950/70 border border-fuchsia-200 dark:border-fuchsia-800 text-fuchsia-700 dark:text-fuchsia-300 text-xs sm:text-sm font-semibold shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-fuchsia-500 animate-pulse"></span>
+          Undergraduate Student @ KMITL
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white">
+          Hi, I'm <br class="hidden sm:inline" />
+          <span class="gradient-text">Phattanan</span> Manuthamathorn
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+          Welcome to my digital space! I study at <span class="font-semibold text-slate-800 dark:text-slate-200">King Mongkut’s Institute of Technology Ladkrabang</span>. Passionate about learning, music, active sports, and discovering creative ideas every day.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
+          <a href="#contact" class="px-6 py-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-semibold shadow-lg shadow-fuchsia-500/25 hover:shadow-fuchsia-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i> Get in Touch
+          </a>
+          <a href="#about" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 hover:-translate-y-0.5 transition-all flex items-center gap-2 shadow-sm">
+            <i data-lucide="user" class="w-4 h-4"></i> Learn More
+          </a>
+        </div>
+
+        <!-- Social Badges Preview -->
+        <div class="flex items-center justify-center md:justify-start gap-5 pt-3 text-slate-500 dark:text-slate-400">
+          <a href="https://www.instagram.com/noelrways?stkn=MWRrMHoyYXU2Mm5kZQ==" target="_blank" rel="noopener noreferrer" class="hover:text-pink-600 transition-colors flex items-center gap-1.5 text-xs font-semibold">
+            <i data-lucide="instagram" class="w-4 h-4"></i> @noelrways
+          </a>
+          <span class="text-slate-300 dark:text-slate-700">•</span>
+          <span class="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+            <i data-lucide="map-pin" class="w-4 h-4"></i> Bangkok, Thailand
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero Profile Image with Decorative Glow Ring -->
+      <div class="flex-1 flex justify-center items-center relative">
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+          <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-fuchsia-500 via-pink-400 to-indigo-500 blur-2xl opacity-60 dark:opacity-40 animate-pulse"></div>
+          <div class="relative w-full h-full rounded-3xl p-1.5 bg-gradient-to-tr from-fuchsia-500 via-purple-500 to-indigo-500 shadow-2xl">
+            <img 
+              src="profile.jpeg" 
+              alt="Portrait of Miss. Phattanan Manuthamathorn" 
+              class="w-full h-full object-cover rounded-[22px] bg-slate-100 dark:bg-slate-900 border-2 border-white/60 dark:border-slate-800/60"
+              onerror="this.src='https://placehold.co/800x800/ede9fe/6d28d9?text=Profile+Photo'"
+            />
+          </div>
+          <!-- Floating decorative badge -->
+          <div class="absolute -bottom-4 -left-4 glassmorphism border border-white/70 dark:border-slate-700/80 rounded-2xl px-4 py-2.5 shadow-xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-fuchsia-500 text-white flex items-center justify-center font-bold">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Currently</p>
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Innovating & Learning</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal-on-scroll scroll-mt-24 space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <h2 class="text-sm uppercase tracking-wider font-extrabold text-fuchsia-600 dark:text-fuchsia-400">Introduction</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">About Me</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          A glimpse into my background, university life, and personal wellness journey.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bio Card -->
+        <div class="md:col-span-2 rounded-3xl p-6 sm:p-8 bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 backdrop-blur-sm shadow-md flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">King Mongkut’s Institute of Technology Ladkrabang</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+              I am enrolled at <strong>KMITL</strong>, one of Thailand’s premier institutions known for technology, engineering, and forward-thinking academic excellence. As a student, I am cultivating analytical skills, discipline, and creative approaches to tackling real challenges.
+            </p>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+              Outside the lecture halls, I prioritize a well-rounded lifestyle: maintaining wellness through cardio and court sports, relaxing with cinematic stories, and seeking peace in acoustic harmonies and literature.
+            </p>
+          </div>
+
+          <!-- Highlight Stats or badges -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-800/60">
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Institute</div>
+              <div class="text-sm font-bold text-slate-800 dark:text-slate-100">KMITL</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-800/60">
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Status</div>
+              <div class="text-sm font-bold text-slate-800 dark:text-slate-100">Student</div>
+            </div>
+            <div class="col-span-2 sm:col-span-1 p-3 rounded-2xl bg-slate-100/70 dark:bg-slate-800/60">
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Passion</div>
+              <div class="text-sm font-bold text-slate-800 dark:text-slate-100">Music & Sports</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hobbies quick spotlight -->
+        <div class="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-fuchsia-500 to-indigo-600 text-white shadow-lg flex flex-col justify-between space-y-6">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center mb-4">
+              <i data-lucide="heart" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold mb-2">My Favorite Hobbies</h3>
+            <p class="text-fuchsia-100 text-sm leading-relaxed mb-6">
+              Recharging my energy through daily activities that inspire and uplift my mood.
+            </p>
+
+            <ul class="space-y-3.5 text-sm">
+              <li class="flex items-center gap-3 bg-white/10 px-3.5 py-2.5 rounded-xl backdrop-blur-sm">
+                <i data-lucide="film" class="w-5 h-5 text-fuchsia-200"></i>
+                <span class="font-medium">Watching Movies & Series</span>
+              </li>
+              <li class="flex items-center gap-3 bg-white/10 px-3.5 py-2.5 rounded-xl backdrop-blur-sm">
+                <i data-lucide="dumbbell" class="w-5 h-5 text-fuchsia-200"></i>
+                <span class="font-medium">Working Out</span>
+              </li>
+              <li class="flex items-center gap-3 bg-white/10 px-3.5 py-2.5 rounded-xl backdrop-blur-sm">
+                <i data-lucide="headphones" class="w-5 h-5 text-fuchsia-200"></i>
+                <span class="font-medium">Listening to Music</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="text-xs text-white/80 italic pt-2">
+            "Balance between mind and motion is key to joy."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="interests" class="reveal-on-scroll scroll-mt-24 space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <h2 class="text-sm uppercase tracking-wider font-extrabold text-indigo-600 dark:text-indigo-400">Passions</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Things I Love</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          These core interests keep me motivated, and excited to explore new horizons.
+        </p>
+      </div>
+
+      <!-- Interests Cards Grid (3 cards as requested: Music, Reading, Badminton) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Interest 1: Music -->
+        <div class="rounded-3xl p-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-fuchsia-100 dark:bg-fuchsia-950/60 text-fuchsia-600 dark:text-fuchsia-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="music" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-fuchsia-50 dark:bg-fuchsia-900/40 text-fuchsia-600 dark:text-fuchsia-300 border border-fuchsia-200 dark:border-fuchsia-800">
+            Acoustic & Vibes
+          </span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3 mb-2">Music Enthusiast</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            Music is my everyday companion. Whether studying, relaxing, or commuting, exploring new playlists across alternative, indie, and pop keeps me inspired and relaxed.
+          </p>
+        </div>
+
+        <!-- Interest 2: Reading books -->
+        <div class="rounded-3xl p-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="book-open" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+            Mind & Soul
+          </span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3 mb-2">Reading Books</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            Diving into fiction, self-development, and thought-provoking literature. Reading provides a quiet sanctuary to expand vocabulary and look at life through different viewpoints.
+          </p>
+        </div>
+
+        <!-- Interest 3: Badminton -->
+        <div class="rounded-3xl p-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="activity" class="w-7 h-7"></i>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+            Speed & Reflexes
+          </span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-3 mb-2">Badminton</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            Fast rallies and tactical court play! Badminton tests agility, endurance, and camaraderie with friends, making it one of my favorite outdoor and indoor sporting activities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="reveal-on-scroll scroll-mt-24 space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <h2 class="text-sm uppercase tracking-wider font-extrabold text-pink-600 dark:text-pink-400">Memories</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Photo Gallery</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          Click any card below to preview the snapshot in detail.
+        </p>
+      </div>
+
+      <!-- 4 Responsive Gallery Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Photo 1 -->
+        <div class="gallery-card group relative rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-800 aspect-[4/5]"
+             data-img="https://placehold.co/900x1100/6366f1/ffffff?text=Campus+Vibes+%E2%80%A2+KMITL"
+             data-caption="Campus Life & Studies at KMITL">
+          <img src="campus.jpeg" alt="Campus Life at KMITL" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
+            <span class="text-xs uppercase tracking-wide text-indigo-300 font-bold">Life</span>
+            <p class="font-bold text-sm">Campus Life at KMITL</p>
+            <p class="text-xs text-slate-300 mt-1 flex items-center gap-1"><i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Click to preview</p>
+          </div>
+        </div>
+
+    <section id="contact" class="reveal-on-scroll scroll-mt-24 space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <h2 class="text-sm uppercase tracking-wider font-extrabold text-fuchsia-600 dark:text-fuchsia-400">Communication</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Get in Touch</p>
+        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+          Feel free to reach out for collaborations, questions, or just to say hi!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Direct contact links & details (5 cols) -->
+        <div class="lg:col-span-5 space-y-5">
+          <!-- Email Box -->
+          <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">KMITL Email</h4>
+                <p class="text-sm sm:text-base font-bold text-slate-900 dark:text-white break-all">68100577@kmitl.ac.th</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 pt-2">
+              <a href="mailto:68100577@kmitl.ac.th" class="flex-1 py-2 px-3 text-center text-xs font-bold rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90 transition-opacity">
+                Send Mail
+              </a>
+              <button id="copy-email-btn" class="flex-1 py-2 px-3 text-center text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-1.5">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Email
+              </button>
+            </div>
+          </div>
+
+          <!-- Instagram Box -->
+          <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-pink-100 dark:bg-pink-950/70 text-pink-600 dark:text-pink-400 flex items-center justify-center">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Instagram</h4>
+                <p class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">@noelrways</p>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <a href="https://www.instagram.com/noelrways?stkn=MWRrMHoyYXU2Mm5kZQ==" target="_blank" rel="noopener noreferrer" class="w-full block py-2.5 px-4 text-center text-xs font-bold rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white shadow-md shadow-pink-500/20 hover:opacity-95 transition-opacity">
+                Visit Profile on Instagram &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Location Info Note -->
+          <div class="p-5 rounded-2xl bg-fuchsia-50/60 dark:bg-fuchsia-950/30 border border-fuchsia-200/60 dark:border-fuchsia-900/50 flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+            <i data-lucide="clock" class="w-5 h-5 text-fuchsia-600 shrink-0"></i>
+            <span>Based in Bangkok, Thailand (UTC+7). Open to academic and extracurricular dialogues.</span>
+          </div>
+        </div>
+
+        <!-- Contact Message Form (7 cols) -->
+        <div class="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <form id="contact-form" class="space-y-4">
+            <div>
+              <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Your Name</label>
+              <input type="text" id="name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all">
+            </div>
+
+            <div>
+              <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Your Email</label>
+              <input type="email" id="email" required placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all">
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Message</label>
+              <textarea id="message" rows="4" required placeholder="Type your greeting or message here..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all resize-none"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-bold text-sm shadow-md shadow-fuchsia-500/25 hover:shadow-fuchsia-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-950/70 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div>
+        &copy; <span id="current-year"></span> Miss. Phattanan Manuthamathorn.
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Student Portfolio</span>
+        <span>•</span>
+        <a href="#home" class="hover:text-fuchsia-500 font-semibold transition-colors">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Gallery -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="relative max-w-3xl w-full max-h-[90vh] flex flex-col items-center">
+      <button id="lightbox-close" class="absolute -top-12 right-0 sm:-right-4 w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-all text-xl" aria-label="Close modal">
+        &times;
+      </button>
+      <img id="lightbox-img" src="" alt="Expanded Preview" class="rounded-2xl max-h-[75vh] w-auto object-contain shadow-2xl border border-white/20" />
+      <p id="lightbox-caption" class="text-white text-sm font-semibold mt-4 text-center"></p>
+    </div>
+  </div>
+
+  <!-- Toast Notification Message Box (Non-alert) -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl text-white text-sm font-semibold bg-slate-900 border border-slate-700">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toast-message">Action successful!</span>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Lucide icons
+      lucide.createIcons();
+
+      // Set footer year
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+
+      // 2. Dark/Light Theme Switching
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const moonIcon = document.getElementById('moon-icon');
+      const sunIcon = document.getElementById('sun-icon');
+      const htmlEl = document.documentElement;
+
+      function updateThemeIcons(isDark) {
+        if (isDark) {
+          moonIcon.classList.add('hidden');
+          sunIcon.classList.remove('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+
+      // Check saved theme or system preference
+      const savedTheme = localStorage.getItem('pm_portfolio_theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        htmlEl.classList.add('dark');
+        updateThemeIcons(true);
+      } else {
+        htmlEl.classList.remove('dark');
+        updateThemeIcons(false);
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        const isDark = htmlEl.classList.toggle('dark');
+        localStorage.setItem('pm_portfolio_theme', isDark ? 'dark' : 'light');
+        updateThemeIcons(isDark);
+      });
+
+      // 3. Mobile Navigation Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      let isMenuOpen = false;
+      function toggleMobileMenu(open) {
+        isMenuOpen = typeof open === 'boolean' ? open : !isMenuOpen;
+        if (isMenuOpen) {
+          mobileMenu.classList.remove('hidden');
+          hamburgerIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      }
+
+      mobileBtn.addEventListener('click', () => toggleMobileMenu());
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMobileMenu(false));
+      });
+
+      // 4. Scroll Reveal Animations & Active Nav Highlighting
+      const reveals = document.querySelectorAll('.reveal-on-scroll');
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-item');
+
+      function handleScroll() {
+        const triggerBottom = window.innerHeight * 0.88;
+
+        reveals.forEach(element => {
+          const top = element.getBoundingClientRect().top;
+          if (top < triggerBottom) {
+            element.classList.add('revealed');
+          }
+        });
+
+        // Active navigation link highlighting
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 120;
+          if (window.pageYOffset >= sectionTop) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href').replace('#', '');
+          if (href === currentSectionId) {
+            link.classList.add('text-fuchsia-600', 'dark:text-fuchsia-400');
+          } else {
+            link.classList.remove('text-fuchsia-600', 'dark:text-fuchsia-400');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Trigger initial check on page load
+
+      // 5. Toast Notification System (replaces alert)
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      let toastTimer = null;
+
+      function showToast(msg) {
+        if (toastTimer) clearTimeout(toastTimer);
+        toastMessage.textContent = msg;
+        toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+        }, 3200);
+      }
+
+      // 6. Copy Email Button Action using document.execCommand fallback
+      const copyBtn = document.getElementById('copy-email-btn');
+      const emailToCopy = "68100577@kmitl.ac.th";
+
+      copyBtn.addEventListener('click', () => {
+        try {
+          const tempInput = document.createElement('input');
+          tempInput.value = emailToCopy;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+          showToast('Email address copied to clipboard!');
+        } catch (err) {
+          showToast('Email: ' + emailToCopy);
+        }
+      });
+
+      // 7. Interactive Contact Form Submission
+      const contactForm = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
+
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="animate-pulse">Sending message...</span>';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          contactForm.reset();
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          showToast('Thank you! Your message has been received.');
+        }, 1000);
+      });
+
+      // 8. Gallery Lightbox Modal Handling
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const galleryCards = document.querySelectorAll('.gallery-card');
+
+      galleryCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const imgSrc = card.getAttribute('data-img');
+          const caption = card.getAttribute('data-caption');
+          lightboxImg.src = imgSrc;
+          lightboxCaption.textContent = caption;
+          lightbox.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+        });
+      });
+
+      function closeLightbox() {
+        lightbox.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+          closeLightbox();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
